@@ -1,0 +1,10 @@
+// Retrieve a model by its primary key...
+$flight = App\Flight::find(1);
+
+// Retrieve the first model matching the query constraints...
+$flight = App\Flight::where('active', 1)->first();
+
+ //video2: Ajouter un produit au panier
+composer require hardevine/shoppingcart
+video4
+composer dump-autoload
