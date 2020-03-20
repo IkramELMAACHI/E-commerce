@@ -7,10 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title></title>
+    <title>E-commerce</title>
 
-
-
+@yield('extra-script')
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,7 +17,7 @@
     <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
+    {{-- <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json"> --}}
     <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
     <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
@@ -30,85 +29,84 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-    
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-{{-- ******************* --}}
-{{-- /*
+    {{-- ******************* --}}
+    {{-- /*
 ** Style Simple Ecommerce Theme for Bootstrap 4
 ** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
 */ --}}
-<style>
-	.bloc_left_price {
-		color: #c01508;
-		text-align: center;
-		font-weight: bold;
-		font-size: 150%;
-	}
-
-	.category_block li:hover {
-		background-color: #007bff;
-	}
-
-	.category_block li:hover a {
-		color: #ffffff;
-	}
-
-	.category_block li a {
-		color: #343a40;
-	}
-
-	.add_to_cart_block .price {
-		color: #c01508;
-		text-align: center;
-		font-weight: bold;
-		font-size: 200%;
-		margin-bottom: 0;
-	}
-
-	.add_to_cart_block .price_discounted {
-		color: #343a40;
-		text-align: center;
-		text-decoration: line-through;
-		font-size: 140%;
-	}
-
-	.product_rassurance {
-		padding: 10px;
-		margin-top: 15px;
-		background: #ffffff;
-		border: 1px solid #6c757d;
-		color: #6c757d;
-	}
-
-	.product_rassurance .list-inline {
-		margin-bottom: 0;
-		text-transform: uppercase;
-		text-align: center;
-	}
-
-	.product_rassurance .list-inline li:hover {
-		color: #343a40;
-	}
-
-	.reviews_product .fa-star {
-		color: gold;
-	}
-
-	.pagination {
-		margin-top: 20px;
-	}
-
-	footer {
-		background: #343a40;
-		padding: 40px;
-	}
-
-	footer a {
-		color: #f8f9fa !important
-	}
-</style>
     <style>
+        .bloc_left_price {
+            color: #c01508;
+            text-align: center;
+            font-weight: bold;
+            font-size: 150%;
+        }
+
+        .category_block li:hover {
+            background-color: #007bff;
+        }
+
+        .category_block li:hover a {
+            color: #ffffff;
+        }
+
+        .category_block li a {
+            color: #343a40;
+        }
+
+        .add_to_cart_block .price {
+            color: #c01508;
+            text-align: center;
+            font-weight: bold;
+            font-size: 200%;
+            margin-bottom: 0;
+        }
+
+        .add_to_cart_block .price_discounted {
+            color: #343a40;
+            text-align: center;
+            text-decoration: line-through;
+            font-size: 140%;
+        }
+
+        .product_rassurance {
+            padding: 10px;
+            margin-top: 15px;
+            background: #ffffff;
+            border: 1px solid #6c757d;
+            color: #6c757d;
+        }
+
+        .product_rassurance .list-inline {
+            margin-bottom: 0;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .product_rassurance .list-inline li:hover {
+            color: #343a40;
+        }
+
+        .reviews_product .fa-star {
+            color: gold;
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        footer {
+            background: #343a40;
+            padding: 40px;
+        }
+
+        footer a {
+            color: #f8f9fa !important
+        }
+   
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -140,12 +138,7 @@
             text-decoration: none;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1,  h2,  h3,h4, h5, h6 {
             font-family: "Playfair Display", Georgia, "Times New Roman", serif;
         }
 
@@ -249,7 +242,7 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="blog.css" rel="stylesheet">
+    {{-- <link href="blog.css" rel="stylesheet"> --}}
 </head>
 
 <body>
@@ -257,10 +250,11 @@
         <header class="blog-header py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                <a class="text-muted" href="{{route('cart.index')}}" >Panier <span class="badge badge-pill badge-dark">{{Cart::count()}}</span></a>
+                    <a class="text-muted" href="{{route('cart.index')}}">Panier <span
+                            class="badge badge-pill badge-dark">{{Cart::count()}}</span></a>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="blog-header-logo text-dark" href="#">Large</a>
+                <a class="blog-header-logo text-dark" href="{{route('products.index')}}">Large</a>
                 </div>
                 <a class="text-muted" href="#" aria-label="Search">
                     <div class="col-4 d-flex justify-content-end align-items-center">
@@ -271,49 +265,49 @@
                             <circle cx="10.5" cy="10.5" r="7.5" />
                             <path d="M21 21l-5.2-5.2" />
                         </svg>
-                    </a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
-                </div>
+                </a>
+                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
             </div>
-        </header>
+    </div>
+    </header>
 
-        <div class="nav-scroller py-1 mb-2">
-            <nav class="nav d-flex justify-content-between">
-                <a class="p-2 text-muted" href="#">World</a>
-                <a class="p-2 text-muted" href="#">U.S.</a>
-                <a class="p-2 text-muted" href="#">Technology</a>
-                <a class="p-2 text-muted" href="#">Design</a>
-                <a class="p-2 text-muted" href="#">Culture</a>
-                <a class="p-2 text-muted" href="#">Business</a>
-                <a class="p-2 text-muted" href="#">Politics</a>
-                <a class="p-2 text-muted" href="#">Opinion</a>
-                <a class="p-2 text-muted" href="#">Science</a>
-                <a class="p-2 text-muted" href="#">Health</a>
-                <a class="p-2 text-muted" href="#">Style</a>
-                <a class="p-2 text-muted" href="#">Travel</a>
-            </nav>
-        </div>
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a class="p-2 text-muted" href="#">World</a>
+            <a class="p-2 text-muted" href="#">U.S.</a>
+            <a class="p-2 text-muted" href="#">Technology</a>
+            <a class="p-2 text-muted" href="#">Design</a>
+            <a class="p-2 text-muted" href="#">Culture</a>
+            <a class="p-2 text-muted" href="#">Business</a>
+            <a class="p-2 text-muted" href="#">Politics</a>
+            <a class="p-2 text-muted" href="#">Opinion</a>
+            <a class="p-2 text-muted" href="#">Science</a>
+            <a class="p-2 text-muted" href="#">Health</a>
+            <a class="p-2 text-muted" href="#">Style</a>
+            <a class="p-2 text-muted" href="#">Travel</a>
+        </nav>
+    </div>
 
-        @if(session('success'))
-        
-        <div class="alert alert-success">
-           {{ session('success')}}
-        </div>
-        @endif
+    @if(session('success'))
 
-        <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                    efficiently
-                    about what’s most interesting in this post’s contents.</p>
-                <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
-            </div>
-        </div>
+    <div class="alert alert-success">
+        {{ session('success')}}
+    </div>
+    @endif
 
-        <div class="row mb-2">
-            @yield('content')
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
+            <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
+                efficiently
+                about what’s most interesting in this post’s contents.</p>
+            <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
         </div>
+    </div>
+
+    <div class="row mb-2">
+        @yield('content')
+    </div>
     </div>
 
     <main role="main" class="container">
@@ -476,6 +470,8 @@
             <a href="#">Back to top</a>
         </p>
     </footer>
+
+   @yield('extra-js') 
 </body>
 
 </html>

@@ -75,7 +75,9 @@
 					<button class="btn btn-block btn-light">Continue Shopping</button>
 				</div>
 				<div class="col-sm-12 col-md-6 text-right">
-					<button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+					<form action=" {{route('checkout.index')}}">
+					<button class="btn btn-lg btn-block btn-success text-uppercase" type="submit">Checkout</button>
+				</form>
 				</div>
 			</div>
 		</div>

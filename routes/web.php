@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use Gloudemans\Shoppingcart\Facades\Cart as GloudemansCart;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,6 @@ Route::delete('/panier/{rowId}', 'CartController@destroy')->name('cart.destroy')
 Route::get('/videpanier', function(){
     GloudemansCart::destroy() ;
 }) ;
+
+/*Checkout Rotes*/
+Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
