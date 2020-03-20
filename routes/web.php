@@ -36,3 +36,5 @@ Route::get('/videpanier', function(){
 
 /*Checkout Rotes*/
 Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
+Route::post('/paiement', 'CheckoutController@store')->name('checkout.store');
+Route::get('/merci', 'CheckoutController@thankyou')->name('checkout.thankyou');
