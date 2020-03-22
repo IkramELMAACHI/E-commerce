@@ -31,7 +31,7 @@ class CheckoutController extends Controller
             'currency' => 'MAD',
             // Verify your integration in this guide by including this parameter
             'metadata' => [
-                'userId' => 15
+            'userId' => 15
             ]
 
         ]);

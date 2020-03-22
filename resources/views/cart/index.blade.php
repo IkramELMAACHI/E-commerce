@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('extra-meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
 @if(Cart::count()>0)
 <div class="container mb-4">
@@ -22,14 +26,19 @@
 						<tr>
 							<td><img class='w-100' width:"100px" height="100px" src="{{$product->model->image}}" />
 							</td>
-							<td>{{$product->model->title}}</td>
+						<td><h5 class="mb-0"><a href="{{route('products.show',['slug'=>$product->model->slug])}}">{{$product->model->title}} </h5></a></td>
 							<td>In stock</td>
-							<td><input class="form-control" type="text" value="1" /></td>
+							<td><select name="qty" id="qty"  data-id={{$product->rowId}} class="custom-select">
+							@for ($i = 1; $i <= 7; $i++)
+							<option value="{{$i}}" {{$i == $product->qty ? 'selected' : ''}}> {{$i}}</option>
+							@endfor	
+							</select></td>
 							{{-- <td class="text-right">{{$product->price}} €</td> --}}
-							<td class="text-right">{{$product->model->getprice()}}</td>
+							{{-- <td class="text-right">{{$product->model->getprice()}}</td> --}}
+							<td class="text-right">{{getprice($product->subtotal())}}</td>
 
 							<td class="text-right">
-								<form action="{{route('cart.destroy',$product->rowId)}}" method="POST">
+								<form action="{{route('cart.destroy',['rowId'=>$product->rowId])}}" method="POST">
 									@csrf
 									@method('DELETE')
 									<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i>
@@ -143,4 +152,45 @@
 @else
 <p class="md-col-12"> Votre panier est vide</p>
 @endif
+@endsection
+
+@section('extra-js')
+<script>
+var selects = document.querySelectorAll('#qty') ;
+	// console.log(selects);
+	//transferer va select a un tableau 
+	Array.from(selects).forEach((element)=>{
+	//  console.log(element);
+	element.addEventListener('change', function (){
+		var rowId = this.getAttribute('data-id');
+		var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content') ;
+
+		fetch(
+			 `/panier/${rowId}`,
+ 			// '/panier/${rowId}',
+			 
+			 {
+				headers: {
+                      "Content-Type" :"application/json",
+                      "Accept":"application/json, text-plain, */*",
+                      "X-Requested-With":"XMLHttpRequest",
+                      "X-CSRF-TOKEN": token
+                  },
+                  method: 'PATCH',
+				  body: JSON.stringify({
+                    qty : this.value 
+                  })
+
+			 }
+			 ).then((data)=>{
+			 console.log(data);
+			location.reload() ;
+			 
+			 }).catch((error) => {
+				console.log(error) 
+				// location redirect
+			 })
+	});
+	});
+</script>
 @endsection

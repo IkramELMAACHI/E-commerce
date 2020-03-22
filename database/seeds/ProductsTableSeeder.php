@@ -24,6 +24,9 @@ class ProductsTableSeeder extends Seeder
                 // 'image' => 'https://via.placeholder.com/200×250' 
                 'image'=> 'https://picsum.photos/200/300?random='.$faker->numberBetween(1,200)
 
+            ])->categories()->attach([
+                rand(1,4),
+                rand(1,4)
             ]);
         }
     }

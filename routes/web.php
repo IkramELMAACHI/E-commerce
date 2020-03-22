@@ -28,11 +28,12 @@ Route ::get('/boutique/{slug}', 'ProductController@show')->name('products.show')
 
 Route::get('/panier','CartController@index')->name('cart.index');
 Route::post('/panier/ajouter', 'CartController@store')->name('cart.store');
+Route::patch('/panier/{rowId}', 'CartController@update')->name('cart.update');
 Route::delete('/panier/{rowId}', 'CartController@destroy')->name('cart.destroy');
 
-Route::get('/videpanier', function(){
-    GloudemansCart::destroy() ;
-}) ;
+// Route::get('/videpanier', function(){
+//     GloudemansCart::destroy() ;
+// }) ;
 
 /*Checkout Rotes*/
 Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
