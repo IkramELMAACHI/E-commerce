@@ -12,32 +12,32 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-    Category::create([
+        Category ::create([
 
-        'name' => 'Livres',
-        'slug' => 'Livres'
-    ]);
-    Category::create([
-        'name' => 'Livres',
-        'slug' => 'livres'
-
-    ]);
-
-    Category::create([
-        'name' => 'Meubles',
-        'slug' => 'meuble'
-
-    ]);
-
-    Category::create([
-        'name' => 'Jeux',
-        'slug' => 'jeux'
-
-    ]);
-    Category::create([
-        'name' => 'Nouriture',
-        'slug' => 'nouriture'
-
-    ]);
+            'name' => 'Livres',
+            'slug' => 'Livres'
+        ]);
+        Category::create([
+            'name' => 'High Tech',
+            'slug' => 'high tech'
+    
+        ]);
+    
+        Category::create([
+            'name' => 'Meubles',
+            'slug' => 'meuble'
+    
+        ]);
+    
+        Category::create([
+            'name' => 'Jeux',
+            'slug' => 'jeux'
+    
+        ]);
+        Category::create([
+            'name' => 'Nouriture',
+            'slug' => 'nouriture'
+    
+        ]);
     }
 }

@@ -6,13 +6,12 @@
           class="row no-gutters border rounded overflow-hidden flex-md-row  shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary">Category</strong>
-          <h5 class="m-0">{{Str::substr(($product->title), 5)}}</h5>
-
-          <hr>
+          <h5 class="mb-2">{{Str::substr(($product->title), 5)}}</h5>
+          <hr class="m-0">
             {{-- <div class="mb-1 text-muted">{{$product->created_at->format('d/m/Y')}}</div> --}}
-            <p class="mb-2  text-muted" >{{$product->description}}</p>
+            <p class="mb-2  text-muted" >{!!$product->description!!}</p>
             {{-- <p class="card-text ">{{$product->subtitle}}</p> --}}
-             <strong class=" mb-2 font-weight-normal text-secondary">{{$product->getPrice()}}</strong>
+             <strong class="  font-weight-normal text-secondary">{{$product->getPrice()}}</strong>
              <form action="{{route('cart.store')}}" method="POST">
               @method('POST')
               @csrf
@@ -25,7 +24,8 @@
 
           </div>
           <div class="col-auto d-none d-lg-block">
-          <img src="{{$product->image}}" alt="">
+            <img width="200px" height="200px" src="{{asset('/storage/'. $product->image)}}" alt="">
+           
           </div>
         </div>
       </div>
