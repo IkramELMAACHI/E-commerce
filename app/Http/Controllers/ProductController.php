@@ -28,8 +28,14 @@ class ProductController extends Controller
     }
 
     public function show($slug){
-        $product=Product::where('slug',$slug)->first();
-        return view('products.show',compact('product')) ;
+
+        $product=Product::where('slug',$slug)->firstOrFail();
+        $stock = $product->stock === 0 ? 'Indisponible' : 'Disponible' ;
+
+        return view('products.show', [ 
+          'product' => $product ,
+          'stock' => $stock 
+          ]);
 
 
     }
@@ -37,9 +43,13 @@ class ProductController extends Controller
     public function search()
     {
 
-    request()->validate([
+   $validator = request()->validate([
     'q' => 'required|min:3'
     ]);
+    // if ( $validator->error() ){
+
+    //   Session::flash('error' ,'La quantité du produit est passée à' );
+    // }
 // $q=$request-get('q');
       $q=request()->input('q') ;
 

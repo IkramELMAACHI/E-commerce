@@ -27,9 +27,9 @@
 							<td><img class='w-100' width:"100px" height="100px" src="{{$product->model->image}}" />
 							</td>
 						<td><h5 class="mb-0"><a href="{{route('products.show',['slug'=>$product->model->slug])}}">{{$product->model->title}} </h5></a></td>
-							<td>In stock</td>
-							<td><select name="qty" id="qty"  data-id={{$product->rowId}} class="custom-select">
-							@for ($i = 1; $i <= 7; $i++)
+							<td> {{ $product->model->stock}} </td>
+							<td><select name="qty" id="qty" data-stock='{{$product->model->stock}}' data-id={{$product->rowId}} class="custom-select">
+							@for ($i = 1; $i <= $product->model->stock ; $i++)
 							<option value="{{$i}}" {{$i == $product->qty ? 'selected' : ''}}> {{$i}}</option>
 							@endfor	
 							</select></td>
@@ -162,13 +162,15 @@ var selects = document.querySelectorAll('#qty') ;
 	Array.from(selects).forEach((element)=>{
 	//  console.log(element);
 	element.addEventListener('change', function (){
-		var rowId = this.getAttribute('data-id');
+		var rowId = element.getAttribute('data-id');
+		var stock = this.getAttribute('data-stock');
+
 		var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content') ;
 
 		fetch(
 			 `/panier/${rowId}`,
  			// '/panier/${rowId}',
-			 
+			
 			 {
 				headers: {
                       "Content-Type" :"application/json",
@@ -178,7 +180,8 @@ var selects = document.querySelectorAll('#qty') ;
                   },
                   method: 'PATCH',
 				  body: JSON.stringify({
-                    qty : this.value 
+                    qty : this.value ,
+					stock :stock
                   })
 
 			 }

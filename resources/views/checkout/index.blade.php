@@ -91,7 +91,7 @@
             //recuperer fom par l'id 
             var form=document.getElementById('payment-form');
             var url =form.action ;
-            var redirect = '/merci' ;
+       
 
           fetch(
               url,
@@ -107,7 +107,12 @@
                     paymentIntent : paymentIntent
                   })
               }).then((data) => {
-              console.log(data)
+                if(data.status == 400){
+                  var redirect = '/boutique' ;
+                }else{
+                  var redirect = '/merci' ;
+                }
+              // console.log(data)
               window.location.href = redirect;
 
           }).catch((error)=>{

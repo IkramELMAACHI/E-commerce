@@ -11,6 +11,7 @@ use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Order ;
+use App\Product;
 use Illuminate\Support\Facades\Session;
 class CheckoutController extends Controller
 {
@@ -31,7 +32,7 @@ class CheckoutController extends Controller
             'currency' => 'MAD',
             // Verify your integration in this guide by including this parameter
             'metadata' => [
-            'userId' => 15
+            'userId' => auth()->user()->id 
             ]
 
         ]);
@@ -60,7 +61,13 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
+
+      if($this->checkIfNotAvailable()) {
+        Session:: flash ('danger', 'Un produit dans votre panier n\'est plus disponible') ;
+        return response()->json(['danger' => false] ,400 );
+      }  
+
         $data = $request->json()->all();
         //    return $data['paymentIntent'];  
     $order=new Order() ;
@@ -74,21 +81,23 @@ class CheckoutController extends Controller
 
     $products =[] ;
     $i =0 ;
-
+   
     foreach(Cart::content() as $product){
 
         $products['products_'. $i][] =$product->model->title ;
         $products['products_'. $i][] =$product->model->price ;
-        // $products['products_'. $i][] =$product->model->qty;
+        $products['products_'. $i][] =$product->qty;
+
         $i++ ;
 
     }
   $order->products = serialize($products);
-  $order->user_id =15 ;
+  $order->user_id = auth()->user()->id  ;
   $order->save() ;
 
   if($data['paymentIntent']['status'] === 'succeeded'){
 
+    $this->updateStock();
          Cart::destroy() ;
         Session:: flash ('success', 'votre commande a été traitée avec succés') ;
        return response()->json(['success' => 'Payment Intent Succeeded']);
@@ -149,5 +158,26 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+  private function checkIfNotAvailable(){
+      foreach(Cart::content() as $item){
+        $product =Product::find($item->model->id) ;
+
+        if($product->stock < $item->qty){
+            return true ;
+        }
+      }
+      return false ;
+
+  }
+
+    private function updateStock(){
+        foreach(Cart::content() as $item){
+            //on recupere le produit depuis l id de produit ds le panier
+            $product =Product::find($item->model->id) ;
+            //mettre ajour la base de données   
+            $product->update(['stock' => $product->stock - $item->qty]) ;     
+        }
+   
     }
 }

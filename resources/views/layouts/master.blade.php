@@ -2,15 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"> 
+    <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
     @yield('extra-meta')
-    
+
     <title>E-commerce</title>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     @yield('extra-script')
     <!-- Bootstrap core CSS -->
@@ -25,7 +26,7 @@
     <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
     <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
-   
+
 
     {{-- *********************** --}}
 
@@ -110,7 +111,7 @@
         footer a {
             color: #f8f9fa !important
         }
-   
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -142,7 +143,12 @@
             text-decoration: none;
         }
 
-        h1,  h2,  h3,h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: "Playfair Display", Georgia, "Times New Roman", serif;
         }
 
@@ -202,7 +208,6 @@
             }
         }
 
-        /* Pagination */
         .blog-pagination {
             margin-bottom: 4rem;
         }
@@ -211,9 +216,6 @@
             border-radius: 2rem;
         }
 
-        /*
- * Blog posts
- */
         .blog-post {
             margin-bottom: 4rem;
         }
@@ -228,9 +230,6 @@
             color: #999;
         }
 
-        /*
- * Footer
- */
         .blog-footer {
             padding: 2.5rem 0;
             color: #999;
@@ -250,30 +249,41 @@
 </head>
 
 <body>
-    <div class="container">
-        <header class="blog-header py-3">
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 pt-1">
-                    <a class="text-muted" href="{{route('cart.index')}}">Panier <span
-                            class="badge badge-pill badge-dark">{{Cart::count()}}</span></a>
-                </div>
-                <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="{{route('products.index')}}">Large</a>
-                </div>
-               @include('partials.search')
-                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+
+
+    <header class="blog-header py-3">
+        {{-- <div class="row flex-nowrap justify-content-between align-items-center"> --}}
+        <div class="  nav d-flex justify-content-around">
+            <div class=" pt-1">
+                <a class="text-muted" href="{{route('cart.index')}}">Panier <span
+                        class="badge badge-pill badge-dark">{{Cart::count()}}</span></a>
             </div>
-    </div>
+
+            <div class="col-6 text-center">
+                <a class="blog-header-logo text-dark" href="{{route('products.index')}}">Large</a>
+            </div>
+            <div class="row d-flex col-4">
+                <div class="text-center">
+                    @include('partials.search')
+                </div>
+
+                <div class="row">
+                    @include('partials.auth')
+                </div>
+            </div>
+
+        </div>
+        {{-- </div> --}}
     </header>
 
     <div class="nav-scroller py-1 mb-2 container">
         <nav class="nav d-flex justify-content-between">
             @foreach (App\Category::all() as $category)
-        <a class="p-2 text-muted" href="{{ route('products.index',['categorie' =>$category->slug]) }}">
-            {{$category->name}}</a>
-                
+            <a class="p-2 text-muted" href="{{ route('products.index',['categorie' =>$category->slug]) }}">
+                {{$category->name}}</a>
+
             @endforeach
-           
+
         </nav>
     </div>
 
@@ -300,10 +310,11 @@
         </div>
     </div> --}}
 
-    <div class="row mb-2">
-        @yield('content')
+    {{-- @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error')}}
     </div>
-    </div>
+    @endif --}}
 
     @if (request()->input('q'))
     <h6 class=" p-1 text-info container">
@@ -314,16 +325,20 @@
     @if (count($errors)>0)
     <div class="alert alert-danger">
         <ul class="my-0">
-    @foreach ($errors->all() as $error)
-        <li>{{$error}}</li>
-
-    @endforeach
+            @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
         </ul>
-
     </div>
-        
     @endif
-{{dd($errors)}}
+
+    <div class="row mb-2 container col-12">
+        @yield('content')
+    </div>
+    </div>
+
+
+
     {{-- <main role="main" class="container">
         <div class="row">
             <div class="col-md-8 blog-main">
@@ -485,7 +500,7 @@
         </p>
     </footer>
 
-   @yield('extra-js') 
+    @yield('extra-js')
 </body>
 
 </html>

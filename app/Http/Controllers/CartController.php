@@ -39,6 +39,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        // if(  $stock = $product->stock === 0 )
 
         // dd($request->product_id , $request->title , $request->price, $request->description) ;
 
@@ -96,8 +97,15 @@ class CartController extends Controller
       ]);
 
     if($validator->fails()){
+
         Session::flash('danger', 'La quantité du produit ne doit pas passée 6');
         return response() ->json(['error'=> 'Cart Quantity Has Not Been Updated']);
+    }
+
+// dd($data);
+    if( $data['qty'] > $data['stock']){
+        Session::flash('danger', 'La quantité du produit n\'est pas disponible');
+        return response() ->json(['error'=> 'Cart Quantity Has Not Available']);
     }
         GloudemansCart::update($rowId, $data['qty']);
 
