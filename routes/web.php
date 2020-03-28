@@ -25,6 +25,7 @@ Route::get('/boutique', 'ProductController@index')->name('products.index') ;
 Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
 Route::get('/search','ProductController@search')->name('products.search') ;
 
+
 /* Cart Route*/
 Route::group(['middleware'=> ['auth']], function(){
 
@@ -32,6 +33,8 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::post('/panier/ajouter', 'CartController@store')->name('cart.store');
     Route::patch('/panier/{rowId}', 'CartController@update')->name('cart.update');
     Route::delete('/panier/{rowId}', 'CartController@destroy')->name('cart.destroy');
+    Route::post('/coupon','CartController@storeCoupon')->name('cart.store.coupon');
+    Route::delete('/coupon','CartController@destroyCoupon')->name('cart.destroy.coupon');
 
 });
 // Route::get('/videpanier', function(){
