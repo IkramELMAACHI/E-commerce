@@ -5,6 +5,7 @@ use App\Http\Controllers\CheckoutController;
 use Gloudemans\Shoppingcart\Facades\Cart as GloudemansCart;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Requests\ContactRequest;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +20,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('home');
+});
 
-/* product Routes */
-Route::get('/boutique', 'ProductController@index')->name('products.index') ;
-Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
 Route::get('/search','ProductController@search')->name('products.search') ;
+
+
+Route::get('/shop', 'ProductController@index')->name('products.index') ;
+Route::get('/shop/{slug}', 'ProductController@show')->name('products.show');
 
 
 /* Cart Route*/
@@ -42,11 +47,11 @@ Route::group(['middleware'=> ['auth']], function(){
 // }) ;
 
 /*Checkout Rotes*/
-Route::group(['middleware'=> ['auth']], function(){
+ Route::group(['middleware'=> ['auth']], function(){
 
     Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
     Route::post('/paiement', 'CheckoutController@store')->name('checkout.store');
-    Route::get('/merci', 'CheckoutController@thankyou')->name('checkout.thankyou');
+    Route::get('/ThankYou', 'CheckoutController@thankyou')->name('checkout.thankyou');
 
 });
 
@@ -57,4 +62,9 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
 

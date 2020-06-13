@@ -24,14 +24,24 @@ class CartController extends Controller
 
             $total = ( GloudemansCart::subtotal() - request()->session()->get('coupon')['remise']) + 
             ( GloudemansCart::subtotal() - request()->session()->get('coupon')['remise']) * (config('cart.tax') / 100);
+     
+            $subtotal =  (  GloudemansCart::subtotal() - request()->session()->get('coupon')['remise'] );
+      
+            $taxe = (GloudemansCart::tax() - request()->session()->get('coupon')['remise'] ) ;
         }
         else{
             $total=  GloudemansCart::total() ;
+            $subtotal =  GloudemansCart::subtotal()  ;
+            $taxe = GloudemansCart ::tax() ;
         }
         
           return view('cart.index', [
          
-            'total' =>  $total
+            'total' =>  $total ,
+            'subtotal' => $subtotal ,
+            'taxe' => $taxe 
+
+
         ]);
     }
 
@@ -68,7 +78,7 @@ class CartController extends Controller
 
         $product = Product::find($request->product_id);
         //add the item to the cart and associate a model with the item.
-        GloudemansCart::add($product->id, $product->title, 1, $product->price)->associate('App\Product');
+        GloudemansCart::add($product->id, $product->title,1, $product->price)->associate('App\Product');
         // Cart::associate($cartItem->rowId, 'Product');
         return redirect()->route('products.index')->with('success', 'le produit a bien été ajouté');
     }
@@ -143,7 +153,7 @@ class CartController extends Controller
         }
         GloudemansCart::update($rowId, $data['qty']);
 
-        Session::flash('success', 'La quantité du produit est passée à' . $data['qty'] . '.');
+        Session::flash('success', 'La quantité du produit est passée à' . $data['qty'] .'.');
 
         return response()->json(['success' => 'Cart quantity Has Been Updated ']);
     }

@@ -1,13 +1,66 @@
-@extends('layouts.master')
+ @extends('layouts.master2')
 
 @section('content')
+{{--<div class="col-md-8 col-md-offset-1">
+	<div class="contact-wrap" style=" padding : 2% 20%">
+		<h3>Create Your Account</h3>
+		<form method="POST" action="{{ route('register') }}" >
+			@csrf
+			<div class="row form-group ">
+				<div class="col-md-12 padding-bottom ">
+					<label for="name"> Name</label>
+					<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+					@error('nom')
+					<div class="invalid-feedback">{{ $message }}</div>
+					@enderror
+				</div>
+			</div>
+
+			<div class="row form-group">
+
+				<div class="col-md-12">
+					<label for="email">Email</label>
+					<inputid="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  >
+					@error('email')
+					<div class="invalid-feedback">{{ $message }}</div>
+					@enderror
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-md-12">
+					<label for="password">Password</label>
+					<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+					@error('password')
+					<div class="invalid-feedback">{{ $message }}</div>
+					@enderror
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-md-12">
+					<label for="password-confirm">Confirme Password</label>
+					<input type="password"type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+				
+				</div>
+			</div>
+
+			<div class="form-group text-center">
+				<input type="submit" value="SignUp" class="btn btn-primary">
+			</div>
+		</form>
+	</div>
+</div>
+@endsection --}}
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+        <div class="col-md-8" >
+            <div class=" col-md-offset-1">
+                {{-- <div class="card-header">{{ __('Register') }}</div> --}}
 
-                <div class="card-body">
+                <div class="card-body contact-wrap">
+					<h3 class="text-center">Create Your Account</h3>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -62,8 +115,8 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-12 " style="text-align: center;">
+                                <button type="submit" class="btn btn-primary center">
                                     {{ __('Register') }}
                                 </button>
                             </div>

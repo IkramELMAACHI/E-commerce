@@ -1,72 +1,195 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
-@section('content')
-<div class="col-md-12">
-  <div class="row no-gutters border rounded overflow-hidden flex-md-row  shadow-sm position-relative">
-    <div class="col p-4 d-flex flex-column position-static">
-     
-      <div class="w-25 badge badge-pill badge-info"> {{$stock}}  </div>
-    
-          <muted class="d-inline-block mb-2 text-info">
-        @foreach ($product->categories as $category)
-        {{$category->name}} {{ $loop->last ? ' ' : ', '}}
-        @endforeach
-      </muted>
-   
-
-      <h5 class="mb-2">{{Str::substr(($product->title), 5)}}</h5>
-      <hr class="m-0">
-      {{-- <div class="mb-1 text-muted">{{$product->created_at->format('d/m/Y')}}
-    </div> --}}
-    <p class="mb-2  text-muted">{!!$product->description!!}</p>
-    {{-- <p class="card-text ">{{$product->subtitle}}</p> --}}
-    <strong class="  font-weight-normal text-secondary">{{$product->getPrice()}}</strong>
-
-      @if($stock == 'Disponible')
-      <form action="{{route('cart.store')}}" method="POST">
-          @method('POST')
-          @csrf
-          <input type="hidden" name="product_id" value="{{$product->id}}">
-          <input type="hidden" name="title" value="{{$product->title}}">
-          <input type="hidden" name="description" value="{{$product->description}}">
-          <input type="hidden" name="price" value="{{$product->price}}">
-          <button type="submit" class="btn btn-dark ">Ajouter au panier  </button>
-        </form>              
-       @else
-          <a type="submit" class="w-25 text-danger">le produit n'est pas disponible </a>
-          @endif 
-
-
-
-  </div>
-  <div class="col-auto d-none d-lg-block">
-    <img width="200px" height="200px" src="{{asset('/storage/'. $product->image)}}" id="mainImage">
-    <div class="mt-2">
-      @if ($product->images)
-     <img width="50" style="cursor:pointer" src="{{asset('/storage/'. $product->image)}}" class="img-thumbnail">
-
-      @foreach (json_decode($product->images, true) as $image)
-      <img src="{{asset('/storage/'. $image)}}" style="cursor:pointer" width="50" class="img-thumbnail">
-      @endforeach
-      @endif
-    </div>
-
-  </div>
-</div>
-</div>
+@section('extra-meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
-@section('extra-js')
+
+@section('header')
+
+
+<style>
+	.discover:hover{
+
+color: #ffc300 !important
+
+	}
+</style>
+<aside id="colorlib-hero" class="breadcrumbs">
+	<div class="flexslider">
+		<ul class="slides">
+			<li style="background-image: url('{{asset('images/cover-img-1.jpg')}}');">
+				<div class="overlay"></div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
+							<div class="slider-text-inner text-center">
+							<a  style=" text-decoration: none;"  href="{{url('shop')}}"><h3 class= 'discover' style=" text-align: -webkit-left; color:black ;font-style: italic;">Discover our new collection</h3></a>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</aside>	
+@endsection
+
+@section('content')
+
+<div class="colorlib-shop">
+	<div class="container">
+		<div class="row row-pb-lg">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="product-detail-wrap">
+					<div class="row">
+						<div class="col-md-5">
+							<div class="product-entry">
+								<div class="product-img" id="mainImage"
+									style="background-image: url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');">
+
+									<p class="tag"><span class="new">{{$stock}} </span></p>
+
+								</div>
+								<div class="thumb-nail">
+									@if ($product->images)
+									<a href="#" class="thumb-img  img-thumbnail"
+										style="background-image:url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');"></a>
+									@foreach (json_decode($product->images, true) as $image)
+									<a href="#" class="thumb-img  img-thumbnail"
+										style="background-image: url('{{str_replace('\\', '/' ,'/storage/'.$image)}}');"></a>
+									@endforeach
+									@endif
+								</div>
+							</div>
+						</div>
+						<div class="col-md-7">
+							<div class="desc">
+								<h3> {{$product->title}} </h3>
+								<h5> {{$product->subtitle}} </h5>
+
+								<p class="price">
+									<span>{{$product->getPrice()}}</span>
+								</p>
+								<p>{!!$product->description!!}</p>
+
+								{{-- //select quantité --}}
+
+								{{-- <div class="one-eight text-center">
+									<select style=" margin: 35px 0 0; width: 70%;" name="qty" id="qty"
+										data-stock='{{$product->stock}}' data-id={{$product->rowId}}>
+								@for ($i = 1; $i <= $product->stock ; $i++)
+									<option value="{{$i}}" {{$i == $product->qty ? 'selected' : ''}}> {{$i}}
+									</option>
+									@endfor
+									</select>
+							</div> --}}
+
+							@if($stock == 'Disponible')
+							<form action="{{route('cart.store')}}" method="POST">
+								@method('POST')
+								@csrf
+								<input type="hidden" name="product_id" value="{{$product->id}}">
+								<input type="hidden" name="title" value="{{$product->title}}">
+								<input type="hidden" name="description" value="{{$product->description}}">
+								<input type="hidden" name="price" value="{{$product->price}}">
+								<input type="hidden" name="qty" value="{{$product->qty}}">
+
+								<button class="btn btn-primary btn-addtocart" style=" display: flex; font-size: 18px; width: 30%;
+										color: white;" type="submit"><i class="icon-shopping-cart"></i>Add to Cart </button>
+
+							</form>
+							@else
+							<a class="w-25 text-danger">le produit n'est pas disponible </a>
+							@endif
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="colorlib-shop">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
+				<h2><span>Similar Products</span></h2>
+				<p>We love to tell our successful far far away, behind the word mountains, far from the countries
+					Vokalia and Consonantia, there live the blind texts.</p>
+			</div>
+		</div>
+		<div class="row">
+			@foreach (App\Product ::with('categories')->orderBy('created_at','DESC')->paginate(4) as $product )
+			<div class="col-md-3 text-center">
+				<div class="product-entry">
+					<div class="product-img"
+						style="background-image: url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');">
+						<div class="cart">
+							<p>
+								<span class="addtocart"><a href="#"><i class="icon-shopping-cart"></i></a></span>
+								<span><a href="product-detail.html"><i class="icon-eye"></i></a></span>
+							</p>
+						</div>
+					</div>
+					<div class="desc">
+						<h3><a href="shop.html">{{$product->title}}</a></h3>
+						<p class="price"><span>{{$product->getPrice()}}</span></p>
+					</div>
+				</div>
+			</div>
+			@endforeach
+
+
+		</div>
+	</div>
+</div>
+
 <script>
+	$(document).ready(function(){
 
-    var mainImage= document.querySelector('#mainImage');
-    var thumbnails= document.querySelectorAll('.img-thumbnail') ;
+		var quantitiy=0;
+		   $('.quantity-right-plus').click(function(e){
+		        
+		        // Stop acting like a button
+		        e.preventDefault();
+				// Get the field name
+				
+		        var quantity = parseInt($('#quantity').val());
+				// If is not undefined
+				
+		            $('#quantity').val(quantity + 1);
+		            // Increment
+		    });
 
-    thumbnails.forEach((element)=> element.addEventListener('mouseover' ,changeImage));
-    function changeImage(e){
-      mainImage.src = this.src ;
-    }
+		     $('.quantity-left-minus').click(function(e){
+		        // Stop acting like a button
+		        e.preventDefault();
+		        // Get the field name
+		        var quantity = parseInt($('#quantity').val());
+		        
+		        // If is not undefined
+		      
+		            // Increment
+		            if(quantity>0){
+		            $('#quantity').val(quantity - 1);
+		            }
+		    });
+		    
+		});
+
+	
 </script>
+<script>
+	var mainImage= document.querySelector('#mainImage');
+		var thumbnails= document.querySelectorAll('.img-thumbnail') ;
 
-
+		thumbnails.forEach((element)=> element.addEventListener('mouseover' ,changeImage));
+		function changeImage(e){
+		  mainImage.style.backgroundImage= this.style.backgroundImage ;
+		}
+</script>
 @endsection

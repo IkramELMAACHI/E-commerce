@@ -8,3 +8,8 @@ $flight = App\Flight::where('active', 1)->first();
 composer require hardevine/shoppingcart
 video4
 composer dump-autoload
+
+
+
+
+php -S localhost:8000 -t public

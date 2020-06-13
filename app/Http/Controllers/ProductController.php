@@ -8,33 +8,42 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index(){
-      //dd(Cart ::content());
+      
     if( request()->categorie){
     $products = Product::with('categories')
     ->whereHas('categories', function($query){ $query->where('slug', request()->categorie); })
     ->orderBy('created_at','DESC')->paginate(6);
-    
+    // dd(Product::with('categories'));
+
+
     } else {
             //recuperer 6 donné aleatiore et la recuperer avec get()
         // $products = Product ::inRandomOrder()->take(6)->get();
         $products = Product ::with('categories')->orderBy('created_at','DESC')->paginate(6) ;
+
       }
       
         // dd($products) ;
         
-    return view('products.index')->with('products',$products);
-    // return view('products.index',compact('products'));
+    // return view('products.index')->with('products',$products);
+    return view('products.shop',compact('products'));
 
     }
 
     public function show($slug){
 
         $product=Product::where('slug',$slug)->firstOrFail();
+
+    //     $category = Product::with('categories')
+    // ->whereHas('categories', function($query){ $query->where('slug', $slug); })
+// dd($product) ;
+          // = $product->category ;
         $stock = $product->stock === 0 ? 'Indisponible' : 'Disponible' ;
 
-        return view('products.show', [ 
+        return view('products.show', [
           'product' => $product ,
           'stock' => $stock 
+
           ]);
 
 
@@ -57,6 +66,11 @@ class ProductController extends Controller
                ->orwhere('description','like', "%$q%")
                ->paginate(6);
 
-      return view('products.search')->with('products',$products);
+      return view('products.shop')->with('products',$products);
     }
-}
+
+
+//     public function shop(){
+// return view("products.shop") ;
+//     }
+  }

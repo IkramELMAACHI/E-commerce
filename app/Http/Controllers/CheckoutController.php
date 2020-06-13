@@ -49,7 +49,7 @@ class CheckoutController extends Controller
 
         ]);
         $clientSecret = Arr::get($intent, 'client_secret');
-        return view('checkout.index', [
+        return view('checkout.checkout', [
             'clientSecret' => $clientSecret,
             'total' =>$total 
        
