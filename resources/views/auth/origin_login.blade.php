@@ -4,7 +4,7 @@
   
 <div class="col-md-8 col-md-offset-1">
     <div class="contact-wrap" style=" padding : 2% 20%">
-        <h3> Login </h3>
+        <h3> Login 2 </h3>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -39,31 +39,13 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group row ">
-                            <div class="m-0 col-md-6 offset-md-4 ">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="form-group row ">
-                            {{-- <div class="col-md-8 offset-md-4 m-0"> --}}
+                        
                                 <input type="submit" value="Login" class="btn btn-primary ">
                                   
                                 </input>
 
-                                {{-- @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                                @endif
-                            </div> --}}
                         </div>
 
                     </form>

@@ -49,8 +49,8 @@ color: #ffc300 !important
 									style="background-image: url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');">
 
 									<p class="tag"><span class="new">{{$stock}} </span></p>
-
-								</div>
+									{{-- @php $products = App\Category::find($product->categories->first()->id)->products) @endphp --}}
+ 					</div>
 								<div class="thumb-nail">
 									@if ($product->images)
 									<a href="#" class="thumb-img  img-thumbnail"
@@ -116,6 +116,7 @@ color: #ffc300 !important
 <div class="colorlib-shop">
 	<div class="container">
 		<div class="row">
+			
 			<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
 				<h2><span>Similar Products</span></h2>
 				<p>We love to tell our successful far far away, behind the word mountains, far from the countries
@@ -123,7 +124,12 @@ color: #ffc300 !important
 			</div>
 		</div>
 		<div class="row">
-			@foreach (App\Product ::with('categories')->orderBy('created_at','DESC')->paginate(4) as $product )
+			<?php $count = 0; ?>
+			@foreach ( App\Category::find($product->categories->first()->id)->products as $product )
+		 
+				<?php if($count == 4) break; ?>
+		 
+				
 			<div class="col-md-3 text-center">
 				<div class="product-entry">
 					<div class="product-img"
@@ -141,6 +147,7 @@ color: #ffc300 !important
 					</div>
 				</div>
 			</div>
+			<?php $count++; ?>
 			@endforeach
 
 

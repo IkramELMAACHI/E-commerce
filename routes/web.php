@@ -17,10 +17,10 @@ use App\Http\Requests\ContactRequest;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('welcome');
 });
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 });
 
@@ -28,7 +28,13 @@ Route::get('/search','ProductController@search')->name('products.search') ;
 
 
 Route::get('/shop', 'ProductController@index')->name('products.index') ;
-Route::get('/shop/{slug}', 'ProductController@show')->name('products.show');
+// Route::get('/shop/{slug}/{id}', 'ProductController@show')->name('products.show');
+Route::get('shop/{slug} ',[
+    'as' => 'products.show',
+    'uses' => 'ProductController@show'
+] ) ;
+
+
 
 
 /* Cart Route*/

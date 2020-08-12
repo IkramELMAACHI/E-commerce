@@ -76,10 +76,6 @@ color: #ffc300 !important
 							<label for="stateprovince">State/Province</label>
 							<input type="text" id="fname" name="test" class="form-control">
 						</div>
-						{{-- <div class="col-md-4">
-						<label for="lname">Zip/Postal Code</label>
-						<input type="text" id="zippostalcode" class="form-control" placeholder="Zip / Postal">
-					</div> --}}
 					</div>
 					<div id="card-errors" role="alert"></div>
 					<div class="form-group  ">

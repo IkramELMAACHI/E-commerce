@@ -107,20 +107,22 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
-						<h2><span>New Arrival</span></h2>
+						<h2><span>Our Products</span></h2>
 						<p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 					</div>
 				</div>
 				<div class="row">
-                    @foreach (App\Product ::with('categories')->orderBy('created_at','DESC')->paginate(4) as $product )
+                    @foreach (App\Product ::with('categories')->orderBy('created_at','DESC')->paginate(8) as $product )
                     <div class="col-md-3 text-center">
                         <div class="product-entry">
                             <div class="product-img"
                                 style="background-image: url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');">
                                 <div class="cart">
                                     <p>
-                                        <span class="addtocart"><a href="#"><i class="icon-shopping-cart"></i></a></span>
-                                        <span><a href="product-detail.html"><i class="icon-eye"></i></a></span>
+                                      <span>
+					 <a class="icona" href="{{route('products.show',  $product->slug  )}}">
+						<i class="icon-eye p-3"> </i> </a>
+	                                  </span> 
                                     </p>
                                 </div>
                             </div>
@@ -136,7 +138,7 @@
                 </div>
 			</div>
 		</div>
-		<div id="colorlib-intro" class="colorlib-intro" style="background-image: url(images/cover-img-1.jpg);" data-stellar-background-ratio="0.5">
+		{{-- <div id="colorlib-intro" class="colorlib-intro" style="background-image: url(images/cover-img-1.jpg);" data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row">
@@ -163,9 +165,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 
-		<div class="colorlib-shop">
+		{{-- <div class="colorlib-shop">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
@@ -328,8 +330,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
+		</div> --}}
+{{-- 
 		<div id="colorlib-testimony" class="colorlib-light-grey">
 			<div class="container">
 				<div class="row">
@@ -374,7 +376,7 @@
 					</div>
 				</div>	
 			</div>
-		</div>
+		</div> --}}
 
 	</div>
 

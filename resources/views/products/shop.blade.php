@@ -44,10 +44,11 @@ color: #ffc300 !important
 <div class="colorlib-shop">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10 col-md-push-2">
+			<div class="col-md-9 col-md-push-3">
 				<div class="row row-pb-lg">
-					@foreach ($products as $product)
-					<div class="col-md-4 text-center">
+				 @foreach ($products as $product)
+			{{-- {{	 dd($product->categories->first()->id)}} --}}
+					<div class="col-md-4 text-centermr-3">
 						<div class="product-entry">
 							<div class="product-img"
 								style="background-image: url('{{str_replace('\\', '/' ,'/storage/'. $product->image)}}');">
@@ -67,9 +68,11 @@ color: #ffc300 !important
 													type="submit"><i class="icon-shopping-cart"></i></a>
 											</span>
 										</form>
-
-										<span><a class="icona" href="{{route('products.show',$product->slug)}}"><i
-													class="icon-eye p-3"></i></a></span>
+ 
+										<span>
+					 <a class="icona" href="{{route('products.show',  $product->slug  )}}">
+						<i class="icon-eye p-3"> </i> </a>
+	                                  </span>  
 									</div>
 								</div>
 							</div>
@@ -81,10 +84,10 @@ color: #ffc300 !important
 						</div>
 					</div>
 					@endforeach
-					{{$products->appends(request()->input())->links()}}
+					{{ $products->appends(request()->input())->links() }}
 				</div>
 			</div>
-			<div class="col-md-2 col-md-pull-10">
+			<div class="col-md-3 col-md-pull-10">
 				<div class="sidebar">
 					<div class="side">
 						<h2>Categories</h2>
