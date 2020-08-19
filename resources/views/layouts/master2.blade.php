@@ -79,8 +79,7 @@
 					<div class="row">
 						<div class="col-xs-2 mt-3">
 							<a href="{{url('/')}}">
-								<img src="{{asset('/images/logoShop.png')}}" style="width: 100px" alt="">
-
+								<img src="{{asset('/images/logoShop.png')}}" style="width: 100px" alt=""> 
 							</a>
 						</div>
 						<div class="col-xs-10 text-right menu-1 ">
