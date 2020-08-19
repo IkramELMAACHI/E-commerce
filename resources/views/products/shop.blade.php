@@ -79,29 +79,30 @@ color: #ffc300 !important
 							<div class="desc">
 								<h3><a href="{{route('products.show',$product->slug)}}">{{$product->title}}</a></h3>
 								<p>{{$product->subtitle}}</p>
-								<p class="price"><span>{{$product->getPrice()}}</span></p>
+								<h4 class="font-weight-bold price " style="color : #ffc300"  > {{$product->getPrice()}} </h4>
 							</div>
 						</div>
 					</div>
 					@endforeach
-					{{ $products->appends(request()->input())->links() }}
+				<span class="d-flex justify-content-center container">	{{ $products->appends(request()->input())->links() }}
+					</span>
 				</div>
 			</div>
 			<div class="col-md-3 col-md-pull-10">
 				<div class="sidebar">
 					<div class="side">
-						<h2>Categories</h2>
+						<h2 style="color : #FFC300" class="text-center mb-3">Categories</h2>
 						<div class="fancy-collapse-panel">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 								@foreach (App\Category::all() as $category)
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingOne">
-										<h4>
+									
 											<a href="{{ route('products.index',['categorie' =>$category->slug]) }}"
-												aria-expanded="true" aria-controls="collapseOne">
-												{{$category->name}}
+											style="text-decoration: none"	aria-expanded="true" aria-controls="collapseOne">
+												<h5 class="text-dark">	{{$category->name}}	</h5>
 											</a>
-										</h4>
+									
 									</div>
 								</div>
 								@endforeach

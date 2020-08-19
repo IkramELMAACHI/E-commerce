@@ -152,26 +152,29 @@
 					</div>
 				</div>
 			</div>
-		</nav>
-
+		</nav> 
+		
 		@if(session('success'))
-		<div class="alert alert-success">
+		<h4 class=" p-1 text-info text-center" style = 'background-color :#c6eecf !important '>
 			{{ session('success')}}
-		</div>
+		</h4>
 		@endif
-
+  
 		@if(session('danger'))
-		<div class="alert alert-danger">
+		<h4 class=" p-1 text-danger text-center" style = 'background-color :#b8172d!important  '>
 			{{ session('danger')}}
-		</div>
+		</h4>
+		@endif  
+{{-- <span> --}}
+	@if (request()->input('q'))
+		<h4 class=" p-1 text-info text-center" style = 'background-color :#c6eecf !important '>
+		 
+					{{$products->total()}} resultat(s) pour la recherche " {{request()->input('q')}}"
+	 
+		</h4>
 		@endif
-
-
-		@if (request()->input('q'))
-		<h6 class=" p-1 text-info container">
-			{{$products->total()}} resultat(s) pour la recherche " {{request()->input('q')}}"
-		</h6>
-		@endif
+{{-- </span> --}}
+		
 
 		@if (count($errors)>0)
 		<div class="alert alert-danger">
@@ -210,11 +213,9 @@
 								Copyright &copy;<script>
 									document.write(new Date().getFullYear());
 								</script> All rights reserved | This template is made with <i class="icon-heart2"
-									aria-hidden="true"></i> by <a href="https://shop.com"
-									target="_blank">Shop</a>
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
-							<span class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>
-								, <a href="http://pexels.com/" target="_blank">Pexels.com</a></span>
+									aria-hidden="true"></i> by <a href="https://github.com/IkramELMAACHI/E-commerce"
+									target="_blank">EL MAACHI Ikram </a>
+							 
 						</p>
 					</div>
 				</div>

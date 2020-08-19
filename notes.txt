@@ -13,3 +13,11 @@ composer dump-autoload
 
 
 php -S localhost:8000 -t public
+
+
+
+# //frigo
+# autocomplate input add recipe 
+# frigo test zero
+# terminer la recette
+# alert.portfolio

@@ -168,7 +168,7 @@ class CartController extends Controller
     {
         GloudemansCart::remove($rowId);
 
-        return redirect()->back()->with('success', 'le produit a été supprimé');
+        return redirect()->back()->with('danger', 'le produit a été supprimé');
     }
 
 
